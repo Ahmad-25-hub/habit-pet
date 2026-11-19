@@ -39,6 +39,10 @@ class Pet {
   static const int habitXp = 10;
   static const int habitFullness = 5;
 
+  /// C3: bonus saat satu stack diselesaikan lengkap.
+  static const int stackXp = 30;
+  static const int stackHappiness = 10;
+
   /// Penurunan status per hari (dihitung saat aplikasi dibuka).
   static const int fullnessDecayPerDay = 12;
   static const int happinessDecayPerDay = 8;
@@ -102,6 +106,13 @@ class Pet {
   Pet addHabitReward(DateTime now) => copyWith(
     xp: xp + habitXp,
     fullness: _clampStatus(fullness + habitFullness),
+    lastUpdated: _dateOnly(now),
+  );
+
+  /// C3: bonus besar saat stack selesai lengkap (+30 XP, +10 kebahagiaan).
+  Pet addStackBonus(DateTime now) => copyWith(
+    xp: xp + stackXp,
+    happiness: _clampStatus(happiness + stackHappiness),
     lastUpdated: _dateOnly(now),
   );
 

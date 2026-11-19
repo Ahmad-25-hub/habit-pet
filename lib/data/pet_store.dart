@@ -46,6 +46,13 @@ class PetStore extends ChangeNotifier {
     await _update(current.addHabitReward(DateTime.now()));
   }
 
+  /// C3: stack selesai lengkap -> bonus +30 XP, +10 kebahagiaan.
+  Future<void> completeStack() async {
+    final current = pet;
+    if (current == null) return;
+    await _update(current.addStackBonus(DateTime.now()));
+  }
+
   /// Check-in dibatalkan -> hadiahnya ikut ditarik kembali.
   Future<void> undoHabit() async {
     final current = pet;

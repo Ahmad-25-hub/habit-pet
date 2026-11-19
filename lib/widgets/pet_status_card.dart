@@ -6,9 +6,12 @@ import 'common.dart';
 
 /// C2: ringkasan tiga status pet (Kenyang, Kebahagiaan, XP) di halaman utama.
 class PetStatusCard extends StatelessWidget {
-  const PetStatusCard({super.key, required this.pet});
+  const PetStatusCard({super.key, required this.pet, this.onTap});
 
   final Pet pet;
+
+  /// Aksi saat kartu diketuk. Kalau kosong, tampilkan penjelasan status.
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class PetStatusCard extends StatelessWidget {
           'Status ${pet.name}, level ${pet.level}, kenyang ${pet.fullness} persen, '
           'kebahagiaan ${pet.happiness} persen, ${pet.xp} XP. Ketuk untuk detail.',
       child: GestureDetector(
-        onTap: () => showPetStatusSheet(context, pet),
+        onTap: onTap ?? () => showPetStatusSheet(context, pet),
         child: Container(
           padding: const EdgeInsets.fromLTRB(10, 10, 12, 12),
           decoration: BoxDecoration(
@@ -277,8 +280,8 @@ void showPetStatusSheet(BuildContext context, Pet pet) {
                 color: AppColors.pink,
                 title: 'Kebahagiaan',
                 text:
-                    'Turun ${Pet.happinessDecayPerDay} poin tiap hari. Pet yang '
-                    'kelaparan akan sedih dan butuh perhatianmu.',
+                    'Turun ${Pet.happinessDecayPerDay} poin tiap hari. Menyelesaikan '
+                    'satu stack lengkap menambah ${Pet.stackHappiness} poin.',
               ),
               const SizedBox(height: 12),
               const _InfoRow(
@@ -286,8 +289,8 @@ void showPetStatusSheet(BuildContext context, Pet pet) {
                 color: AppColors.blue,
                 title: 'XP & Level',
                 text:
-                    'Setiap habit selesai memberi ${Pet.habitXp} XP. Pet naik '
-                    'level setiap ${Pet.xpPerLevel} XP.',
+                    'Setiap habit selesai memberi ${Pet.habitXp} XP, stack lengkap '
+                    'bonus ${Pet.stackXp} XP. Pet naik level setiap ${Pet.xpPerLevel} XP.',
               ),
               const SizedBox(height: 16),
               Container(

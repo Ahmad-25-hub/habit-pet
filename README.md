@@ -18,9 +18,10 @@ Daftar fitur lengkap ada di `Daftar_Fitur_Habit_Tracker.md` (versi Word: `Daftar
 | A5/A7 | Penyimpanan lokal | Selesai |
 | C1 | Beri nama pet (onboarding) | Selesai |
 | C2 | Status pet (Kenyang, Kebahagiaan, XP) | Selesai |
-| B1, B2 | Habit stacking | Belum |
-| C3 | Pet bereaksi ke habit | Sebagian (hadiah check-in; bonus stack belum) |
-| C4 | Halaman pet | Belum |
+| B1 | Buat stack (rantai) | Selesai |
+| B2 | Mode jalankan stack | Selesai |
+| C3 | Pet bereaksi ke habit (hadiah check-in + bonus stack) | Selesai |
+| C4 | Halaman pet | Selesai |
 
 ## Cara menjalankan
 
@@ -60,6 +61,23 @@ Menjalankan semua tes: `flutter test`
 - Gambar pet berganti antara `pet_happy.png` dan `pet_hungry_sad.png` sesuai
   kondisi kenyang & kebahagiaan.
 
+## Fitur B1, B2, C3 & C4 — Habit Stacking dan Halaman Pet
+
+- **B1:** tombol 🔗 di kanan atas halaman utama membuka daftar stack. Buat stack
+  dengan nama (mis. "Rutinitas Pagi") lalu ketuk habit sesuai urutan yang
+  diinginkan (minimal 2 habit). Ketuk kartu stack untuk edit, ikon tempat sampah
+  untuk hapus. Disimpan di `shared_preferences` (key `stacks`). Habit yang dihapus
+  otomatis keluar dari semua stack.
+- **B2:** tombol ▶ pada kartu stack menjalankan stack langkah demi langkah.
+  **Selesai** = check-in habit itu lalu otomatis lanjut ke habit berikutnya,
+  **Lewati** = lanjut tanpa check-in.
+- **C3:** kalau semua habit di stack selesai saat dijalankan, pet dapat bonus
+  **+30 XP dan +10 kebahagiaan**. Stack yang sudah lengkap sebelum dijalankan
+  tidak diberi bonus lagi (supaya tidak bisa diulang-ulang di hari yang sama).
+- **C4:** ketuk kartu pet di halaman utama untuk membuka halaman pet: gambar
+  pet, level + bar XP, bar Kenyang & Kebahagiaan, dan cara membuat pet tumbuh.
+  Tombol ⓘ menampilkan penjelasan aturan status.
+
 ## Struktur kode
 
 ```
@@ -67,14 +85,19 @@ lib/
   main.dart                          # tema, memuat data, onboarding-first
   theme.dart                         # warna, ikon/warna habit, nama hari
   models/habit.dart                  # model Habit + hitung streak (A4)
-  models/pet.dart                    # model Pet: status, level, decay (C2)
-  data/habit_storage.dart            # simpan/baca habit (A5/A7)
+  models/pet.dart                    # model Pet: status, level, decay, bonus (C2/C3)
+  models/habit_stack.dart            # model HabitStack: nama + urutan habit (B1)
+  data/habit_storage.dart            # simpan/baca habit & stack (A5/A7/B1)
   data/pet_storage.dart              # simpan/baca pet (C1/C2)
-  data/habit_store.dart              # kelola habit + check-in (A1/A3)
-  data/pet_store.dart                # kelola pet + hadiah habit (C1/C2/C3)
+  data/habit_store.dart              # kelola habit, check-in, stack (A1/A3/B1)
+  data/pet_store.dart                # kelola pet + hadiah habit & stack (C1/C2/C3)
   screens/home_screen.dart           # daftar habit hari ini + status pet (A2/C2)
   screens/pet_onboarding_screen.dart # onboarding beri nama pet (C1)
   screens/manage_habits_screen.dart  # daftar semua habit (A1)
   screens/habit_form_screen.dart     # form tambah/edit habit (A1)
+  screens/stacks_screen.dart         # daftar stack (B1)
+  screens/stack_form_screen.dart     # form buat/edit stack (B1)
+  screens/run_stack_screen.dart      # jalankan stack langkah demi langkah (B2/C3)
+  screens/pet_screen.dart            # halaman pet (C4)
   widgets/                           # kartu, tile habit, streak, status pet
 ```

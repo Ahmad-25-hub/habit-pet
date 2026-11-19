@@ -13,6 +13,8 @@ import '../widgets/pet_status_card.dart';
 import '../widgets/streak_banner.dart';
 import 'habit_form_screen.dart';
 import 'manage_habits_screen.dart';
+import 'pet_screen.dart';
+import 'stacks_screen.dart';
 
 /// A2: halaman utama, menampilkan habit yang harus dikerjakan hari ini.
 /// A3: kartu habit bisa diketuk untuk check-in / membatalkan check-in.
@@ -57,6 +59,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       context,
       MaterialPageRoute(
         builder: (_) => ManageHabitsScreen(store: widget.store),
+      ),
+    );
+  }
+
+  /// C4: buka halaman pet.
+  void openPet() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => PetScreen(petStore: widget.petStore)),
+    );
+  }
+
+  /// B1: buka daftar stack.
+  void openStacks() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => StacksScreen(store: widget.store, petStore: widget.petStore),
       ),
     );
   }
@@ -151,10 +171,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             return ListView(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
               children: [
-                _Header(onManage: openManage),
+                _Header(onManage: openManage, onStacks: openStacks),
                 const SizedBox(height: 16),
                 if (pet != null) ...[
-                  PetStatusCard(pet: pet),
+                  PetStatusCard(pet: pet, onTap: openPet), // C4
                   const SizedBox(height: 16),
                 ],
                 DateStrip(
@@ -220,9 +240,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 }
 
 class _Header extends StatelessWidget {
-  const _Header({required this.onManage});
+  const _Header({required this.onManage, required this.onStacks});
 
   final VoidCallback onManage;
+  final VoidCallback onStacks;
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +265,9 @@ class _Header extends StatelessWidget {
             ],
           ),
         ),
+        // B1: tombol ke halaman Habit Stack.
+        CircleButton(icon: Icons.link_rounded, onTap: onStacks),
+        const SizedBox(width: 8),
         CircleButton(icon: Icons.tune_rounded, onTap: onManage),
       ],
     );

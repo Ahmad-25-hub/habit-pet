@@ -3,16 +3,19 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 import '../models/habit.dart';
+import '../models/habit_stack.dart';
 import 'habit_storage.dart';
 
 /// Tempat semua data habit. Layar mendengarkan perubahan lewat
 /// ListenableBuilder, dan setiap perubahan langsung disimpan (A5).
 class HabitStore extends ChangeNotifier {
   List<Habit> habits = [];
+  List<HabitStack> stacks = []; // B1
   bool isLoading = true;
 
   Future<void> load() async {
     habits = await HabitStorage.load();
+    stacks = await HabitStorage.loadStacks();
     isLoading = false;
     notifyListeners();
   }
@@ -39,7 +42,46 @@ class HabitStore extends ChangeNotifier {
 
   Future<void> delete(String id) async {
     habits.removeWhere((h) => h.id == id);
+
+    // B1: habit yang dihapus juga dikeluarkan dari semua stack.
+    stacks = [
+      for (final s in stacks)
+        HabitStack(
+          id: s.id,
+          name: s.name,
+          habitIds: s.habitIds.where((h) => h != id).toList(),
+        ),
+    ];
+    await _saveStacks();
     await _save();
+  }
+
+  // ---- B1: tambah, edit, hapus stack ----
+
+  /// Habit di dalam stack, sesuai urutan rutinitas.
+  List<Habit> habitsInStack(HabitStack stack) => [
+        for (final id in stack.habitIds) ...habits.where((h) => h.id == id),
+      ];
+
+  Future<void> addStack(HabitStack stack) async {
+    stacks.add(stack);
+    await _saveStacks();
+  }
+
+  Future<void> updateStack(HabitStack stack) async {
+    final index = stacks.indexWhere((s) => s.id == stack.id);
+    if (index != -1) stacks[index] = stack;
+    await _saveStacks();
+  }
+
+  Future<void> deleteStack(String id) async {
+    stacks.removeWhere((s) => s.id == id);
+    await _saveStacks();
+  }
+
+  Future<void> _saveStacks() async {
+    notifyListeners();
+    await HabitStorage.saveStacks(stacks);
   }
 
   // ---- A3: check-in / batalkan check-in ----
