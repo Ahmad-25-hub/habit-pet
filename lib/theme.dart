@@ -27,6 +27,7 @@ const habitIcons = [
   'workout',
 ];
 
+/// Mengubah nama ikon menjadi path gambar asetnya.
 String habitImage(String icon) => 'assets/images/habit_$icon.png';
 
 /// Pilihan warna kartu habit (pastel).

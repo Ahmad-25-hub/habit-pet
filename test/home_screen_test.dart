@@ -8,9 +8,11 @@ import 'package:habit_pet/screens/home_screen.dart';
 import 'package:habit_pet/screens/pet_onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Widget test onboarding pet dan check-in di halaman utama.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  // Kosongkan penyimpanan tiruan sebelum setiap test.
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });

@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_pet/models/pet.dart';
 
+/// Unit test model Pet: level, penurunan status, hadiah, dan JSON.
 void main() {
   final today = DateTime(2026, 11, 19);
 
+  /// Membuat pet contoh; parameter yang tidak diisi memakai nilai bawaan.
   Pet pet({
     String name = 'Milo',
     int fullness = 70,

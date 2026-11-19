@@ -13,12 +13,14 @@ class HabitStack {
     required this.habitIds,
   });
 
+  /// Mengubah stack menjadi Map supaya bisa disimpan sebagai JSON.
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'habitIds': habitIds,
       };
 
+  /// Membuat stack dari Map hasil membaca JSON.
   factory HabitStack.fromJson(Map<String, dynamic> json) => HabitStack(
         id: json['id'] as String,
         name: json['name'] as String,

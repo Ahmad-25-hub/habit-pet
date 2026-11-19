@@ -26,6 +26,7 @@ class HabitTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
 
+  /// Menyusun garis timeline, kartu habit, status, streak, dan tombol Edit.
   @override
   Widget build(BuildContext context) {
     final done = habit.isDoneOn(date);
@@ -158,6 +159,7 @@ class HabitTile extends StatelessWidget {
     );
   }
 
+  /// Membuat potongan garis timeline vertikal (transparan kalau disembunyikan).
   Widget _line({required bool visible}) {
     return Center(
       child: Container(
@@ -174,6 +176,7 @@ class _Status extends StatelessWidget {
 
   final bool done;
 
+  /// Menampilkan ikon dan teks status selesai / belum selesai.
   @override
   Widget build(BuildContext context) {
     final color = done ? AppColors.green : AppColors.textSoft;
@@ -212,6 +215,7 @@ class _EditButton extends StatelessWidget {
 
   final VoidCallback onTap;
 
+  /// Menggambar tombol kecil "Edit" yang memanggil [onTap].
   @override
   Widget build(BuildContext context) {
     return Material(

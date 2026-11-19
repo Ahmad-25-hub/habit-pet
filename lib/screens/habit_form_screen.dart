@@ -14,10 +14,12 @@ class HabitFormScreen extends StatefulWidget {
   /// null = tambah habit baru, selain itu = edit habit ini.
   final Habit? habit;
 
+  /// Membuat objek state untuk form habit.
   @override
   State<HabitFormScreen> createState() => _HabitFormScreenState();
 }
 
+/// State form: menyimpan isian nama, ikon, warna, dan jadwal yang dipilih.
 class _HabitFormScreenState extends State<HabitFormScreen> {
   late final nameController = TextEditingController(text: widget.habit?.name);
   late String icon = widget.habit?.icon ?? habitIcons.first;
@@ -25,18 +27,22 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
   late bool everyDay = widget.habit?.isEveryDay ?? true;
   late final Set<int> days = {...widget.habit?.days ?? const [1, 2, 3, 4, 5]};
 
+  /// True kalau form dibuka untuk mengedit habit yang sudah ada.
   bool get isEdit => widget.habit != null;
 
+  /// Membersihkan controller teks saat halaman ditutup.
   @override
   void dispose() {
     nameController.dispose();
     super.dispose();
   }
 
+  /// Menampilkan pesan singkat (SnackBar), mis. untuk error validasi.
   void showMessage(String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
+  /// Memvalidasi isian, lalu menambah / memperbarui habit dan menutup form.
   void save() {
     final name = nameController.text.trim();
     final selectedDays = everyDay ? [1, 2, 3, 4, 5, 6, 7] : (days.toList()..sort());
@@ -67,6 +73,8 @@ class _HabitFormScreenState extends State<HabitFormScreen> {
     Navigator.pop(context);
   }
 
+  /// Menyusun form: pratinjau ikon, nama, pilihan ikon, warna, jadwal,
+  /// dan tombol simpan.
   @override
   Widget build(BuildContext context) {
     final bg = Color(color);
@@ -227,6 +235,7 @@ class _Section extends StatelessWidget {
   final String title;
   final Widget child;
 
+  /// Membungkus [child] dalam kartu dengan judul dan ikon kecil.
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -258,6 +267,7 @@ class _Section extends StatelessWidget {
   }
 }
 
+/// Satu pilihan ikon habit berbentuk lingkaran.
 class _IconChoice extends StatelessWidget {
   const _IconChoice({required this.icon, required this.selected, required this.onTap});
 
@@ -265,6 +275,7 @@ class _IconChoice extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  /// Menggambar ikon dalam lingkaran; diberi garis oranye kalau terpilih.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -289,6 +300,7 @@ class _IconChoice extends StatelessWidget {
   }
 }
 
+/// Satu pilihan warna kartu habit.
 class _ColorChoice extends StatelessWidget {
   const _ColorChoice({required this.color, required this.selected, required this.onTap});
 
@@ -296,6 +308,7 @@ class _ColorChoice extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  /// Menggambar lingkaran warna; diberi tanda centang kalau terpilih.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -319,6 +332,7 @@ class _ColorChoice extends StatelessWidget {
   }
 }
 
+/// Tombol pilihan jadwal: "Setiap hari" atau "Hari tertentu".
 class _ChoicePill extends StatelessWidget {
   const _ChoicePill({required this.label, required this.selected, required this.onTap});
 
@@ -326,6 +340,7 @@ class _ChoicePill extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  /// Menggambar tombol pil; berwarna oranye kalau terpilih.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -350,6 +365,7 @@ class _ChoicePill extends StatelessWidget {
   }
 }
 
+/// Tombol bulat untuk memilih satu hari (Sen - Min).
 class _DayChoice extends StatelessWidget {
   const _DayChoice({required this.label, required this.selected, required this.onTap});
 
@@ -357,6 +373,7 @@ class _DayChoice extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  /// Menggambar tombol hari; berwarna oranye kalau terpilih.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

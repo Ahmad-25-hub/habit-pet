@@ -9,13 +9,16 @@ import 'package:habit_pet/screens/pet_screen.dart';
 import 'package:habit_pet/screens/run_stack_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Test mode jalankan stack (B2), bonus stack (C3), dan halaman pet (C4).
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  // Kosongkan penyimpanan tiruan sebelum setiap test.
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  /// Membuat habit contoh (setiap hari) dengan id dan nama tertentu.
   Habit habit(String id, String name) => Habit(
         id: id,
         name: name,

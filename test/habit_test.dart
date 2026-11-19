@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_pet/models/habit.dart';
 
+/// Unit test model Habit: perhitungan streak dan konversi JSON.
 void main() {
   final today = DateTime(2026, 11, 18); // Rabu
 
+  /// Membuat habit contoh dengan jadwal [days] dan riwayat selesai [done].
   Habit habit({List<int> days = const [1, 2, 3, 4, 5, 6, 7], required List<String> done}) {
     return Habit(id: '1', name: 'Tes', icon: 'reading', color: 0xFFFFFFFF, days: days, doneDates: done);
   }

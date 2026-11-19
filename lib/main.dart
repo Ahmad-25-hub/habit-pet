@@ -6,6 +6,7 @@ import 'screens/home_screen.dart';
 import 'screens/pet_onboarding_screen.dart';
 import 'theme.dart';
 
+/// Titik awal aplikasi: memuat data habit & pet, lalu menjalankan app.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -17,12 +18,15 @@ Future<void> main() async {
   runApp(HabitPetApp(store: store, petStore: petStore));
 }
 
+/// Widget akar aplikasi: mengatur tema dan memilih layar pertama.
 class HabitPetApp extends StatelessWidget {
   const HabitPetApp({super.key, required this.store, required this.petStore});
 
   final HabitStore store;
   final PetStore petStore;
 
+  /// Membuat MaterialApp; menampilkan Home kalau pet sudah ada,
+  /// atau layar onboarding kalau belum.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

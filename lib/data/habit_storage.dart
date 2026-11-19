@@ -10,6 +10,7 @@ import '../models/habit_stack.dart';
 class HabitStorage {
   static const _key = 'habits';
 
+  /// Membaca daftar habit dari penyimpanan; kosong kalau belum ada/rusak.
   static Future<List<Habit>> load() async {
     final prefs = await SharedPreferences.getInstance();
     final text = prefs.getString(_key);
@@ -23,6 +24,7 @@ class HabitStorage {
     }
   }
 
+  /// Menyimpan seluruh daftar habit sebagai teks JSON.
   static Future<void> save(List<Habit> habits) async {
     final prefs = await SharedPreferences.getInstance();
     final text = jsonEncode(habits.map((h) => h.toJson()).toList());
@@ -33,6 +35,7 @@ class HabitStorage {
 
   static const _stackKey = 'stacks';
 
+  /// Membaca daftar stack dari penyimpanan; kosong kalau belum ada.
   static Future<List<HabitStack>> loadStacks() async {
     final prefs = await SharedPreferences.getInstance();
     final text = prefs.getString(_stackKey);
@@ -42,6 +45,7 @@ class HabitStorage {
     return list.map((item) => HabitStack.fromJson(item)).toList();
   }
 
+  /// Menyimpan seluruh daftar stack sebagai teks JSON.
   static Future<void> saveStacks(List<HabitStack> stacks) async {
     final prefs = await SharedPreferences.getInstance();
     final text = jsonEncode(stacks.map((s) => s.toJson()).toList());

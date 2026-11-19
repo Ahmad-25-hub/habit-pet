@@ -12,6 +12,8 @@ class PetScreen extends StatelessWidget {
 
   final PetStore petStore;
 
+  /// Menyusun halaman pet: gambar & nama, kartu level/XP,
+  /// bar kenyang & kebahagiaan, dan cara membuat pet tumbuh.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +147,7 @@ class _StatusRow extends StatelessWidget {
   final int value; // 0 - 100
   final Color color;
 
+  /// Menampilkan ikon, label, persen, dan bar progres di bawahnya.
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -175,6 +178,7 @@ class _Bar extends StatelessWidget {
   final double value; // 0.0 - 1.0
   final Color color;
 
+  /// Menggambar bar progres dengan sudut membulat.
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

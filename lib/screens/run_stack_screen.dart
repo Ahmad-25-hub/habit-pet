@@ -23,10 +23,12 @@ class RunStackScreen extends StatefulWidget {
   final PetStore petStore;
   final HabitStack stack;
 
+  /// Membuat objek state untuk mode jalankan stack.
   @override
   State<RunStackScreen> createState() => _RunStackScreenState();
 }
 
+/// State mode jalankan: menyimpan langkah aktif, status selesai, dan bonus.
 class _RunStackScreenState extends State<RunStackScreen> {
   final today = DateUtils.dateOnly(DateTime.now());
 
@@ -43,6 +45,7 @@ class _RunStackScreenState extends State<RunStackScreen> {
   /// supaya bonus tidak bisa didapat berkali-kali di hari yang sama.
   late final bool wasCompleteBefore;
 
+  /// Mencatat apakah stack sudah lengkap sebelum mulai dijalankan.
   @override
   void initState() {
     super.initState();
@@ -52,6 +55,7 @@ class _RunStackScreenState extends State<RunStackScreen> {
   /// Habit di stack, sesuai urutan (diambil ulang supaya status selalu baru).
   List<Habit> get habits => widget.store.habitsInStack(widget.stack);
 
+  /// Mengecek apakah semua habit di stack sudah selesai hari ini.
   bool allDoneToday() => habits.every((h) => h.isDoneOn(today));
 
   /// Tombol "Selesai": check-in habit ini (kalau belum), lalu lanjut.
@@ -79,6 +83,8 @@ class _RunStackScreenState extends State<RunStackScreen> {
     setState(() => finished = true);
   }
 
+  /// Menyusun halaman: header nama stack, lalu tampilan langkah
+  /// atau tampilan akhir.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -7,13 +7,16 @@ import 'package:habit_pet/models/habit.dart';
 import 'package:habit_pet/models/pet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Test HabitStore (check-in) dan PetStore (buat pet, hadiah, penurunan).
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  // Kosongkan penyimpanan tiruan sebelum setiap test.
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  /// Membuat satu habit contoh untuk dipakai di test.
   Habit sampleHabit() => const Habit(
     id: 'h1',
     name: 'Baca buku',

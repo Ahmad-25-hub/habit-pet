@@ -9,6 +9,7 @@ class StreakBanner extends StatelessWidget {
 
   final int streak;
 
+  /// Menampilkan banner berisi jumlah streak terbaik atau ajakan memulai.
   @override
   Widget build(BuildContext context) {
     final hasStreak = streak > 0;

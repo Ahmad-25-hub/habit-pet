@@ -13,6 +13,7 @@ class AppCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
 
+  /// Menggambar kartu putih berisi [child].
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,6 +46,7 @@ class BlendImage extends StatelessWidget {
   final Color background;
   final double size;
 
+  /// Menampilkan gambar dengan efek multiply terhadap warna latar.
   @override
   Widget build(BuildContext context) {
     return Image.asset(
@@ -70,6 +72,7 @@ class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
   final Color color;
 
+  /// Menggambar tombol bulat berisi ikon yang memanggil [onTap].
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -94,6 +97,7 @@ class PageHeader extends StatelessWidget {
   final String title;
   final Widget? trailing;
 
+  /// Menyusun baris header: tombol kembali, judul, dan [trailing].
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -121,6 +125,7 @@ class Pill extends StatelessWidget {
 
   final String text;
 
+  /// Menggambar label pil berwarna oranye.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -147,6 +152,7 @@ class StreakLabel extends StatelessWidget {
 
   final int streak;
 
+  /// Menampilkan ikon api dan teks jumlah hari streak.
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -188,6 +194,7 @@ class EmptyHabits extends StatelessWidget {
   final VoidCallback onAdd;
   final Color background;
 
+  /// Menampilkan gambar pet, pesan, dan tombol "Tambah Habit".
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -9,6 +9,7 @@ import '../models/pet.dart';
 class PetStorage {
   static const _key = 'pet';
 
+  /// Membaca data pet; null kalau belum pernah dibuat atau datanya rusak.
   static Future<Pet?> load() async {
     final prefs = await SharedPreferences.getInstance();
     final text = prefs.getString(_key);
@@ -21,11 +22,13 @@ class PetStorage {
     }
   }
 
+  /// Menyimpan data pet sebagai teks JSON.
   static Future<void> save(Pet pet) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_key, jsonEncode(pet.toJson()));
   }
 
+  /// Menghapus data pet dari perangkat.
   static Future<void> clear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_key);

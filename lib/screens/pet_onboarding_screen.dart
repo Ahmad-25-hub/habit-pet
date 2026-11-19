@@ -10,28 +10,33 @@ class PetOnboardingScreen extends StatefulWidget {
 
   final PetStore petStore;
 
+  /// Membuat objek state untuk layar onboarding.
   @override
   State<PetOnboardingScreen> createState() => _PetOnboardingScreenState();
 }
 
+/// State onboarding: menyimpan isian nama dan status sedang menyimpan.
 class _PetOnboardingScreenState extends State<PetOnboardingScreen> {
   final _nameController = TextEditingController();
   bool _saving = false;
 
   static const _suggestions = ['Milo', 'Coco', 'Nala', 'Pip'];
 
+  /// Membersihkan controller teks saat layar ditutup.
   @override
   void dispose() {
     _nameController.dispose();
     super.dispose();
   }
 
+  /// Mengisi kolom nama dengan nama saran yang diketuk.
   void _pickSuggestion(String name) {
     _nameController.text = name;
     _nameController.selection = TextSelection.collapsed(offset: name.length);
     setState(() {});
   }
 
+  /// Memvalidasi nama lalu membuat pet baru (tombol "Mulai Berteman").
   Future<void> _start() async {
     final name = _nameController.text.trim();
     if (name.isEmpty) {
@@ -50,6 +55,8 @@ class _PetOnboardingScreenState extends State<PetOnboardingScreen> {
     }
   }
 
+  /// Menyusun layar: gambar pet, judul, kolom nama, saran nama,
+  /// kartu info, dan tombol mulai.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -239,9 +246,11 @@ class _PetOnboardingScreenState extends State<PetOnboardingScreen> {
   }
 }
 
+/// Logo kecil "Habit Pet" di bagian atas onboarding.
 class _Brand extends StatelessWidget {
   const _Brand();
 
+  /// Menampilkan ikon kaki hewan dan teks "Habit Pet".
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -274,6 +283,7 @@ class _Brand extends StatelessWidget {
   }
 }
 
+/// Tombol pil berisi satu saran nama pet.
 class _NameSuggestion extends StatelessWidget {
   const _NameSuggestion({
     required this.name,
@@ -285,6 +295,7 @@ class _NameSuggestion extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  /// Menggambar pil nama; berwarna oranye kalau sedang dipilih.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -312,12 +323,14 @@ class _NameSuggestion extends StatelessWidget {
   }
 }
 
+/// Lingkaran warna lembut untuk dekorasi latar belakang.
 class _SoftCircle extends StatelessWidget {
   const _SoftCircle({required this.size, required this.color});
 
   final double size;
   final Color color;
 
+  /// Menggambar lingkaran polos yang tidak bisa diketuk.
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
@@ -337,6 +350,7 @@ class _Hint extends StatelessWidget {
   final IconData icon;
   final String text;
 
+  /// Menampilkan ikon kecil dan satu baris teks info.
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -358,6 +372,7 @@ class _Hint extends StatelessWidget {
 class _HintCard extends StatelessWidget {
   const _HintCard();
 
+  /// Menampilkan kartu putih berisi dua baris info tentang pet.
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -9,6 +9,7 @@ class DateStrip extends StatelessWidget {
   final DateTime selected;
   final ValueChanged<DateTime> onSelect;
 
+  /// Membuat 7 tombol hari; mengetuk salah satunya memanggil [onSelect].
   @override
   Widget build(BuildContext context) {
     final today = DateUtils.dateOnly(DateTime.now());
@@ -33,6 +34,7 @@ class DateStrip extends StatelessWidget {
   }
 }
 
+/// Satu tombol hari (tanggal + nama hari) di dalam [DateStrip].
 class _DayPill extends StatelessWidget {
   const _DayPill({
     required this.date,
@@ -48,6 +50,8 @@ class _DayPill extends StatelessWidget {
   final bool isSelected;
   final ValueChanged<DateTime> onTap;
 
+  /// Menggambar tombol hari dengan warna sesuai status
+  /// (terpilih, sudah lewat, atau hari mendatang).
   @override
   Widget build(BuildContext context) {
     final Color background;

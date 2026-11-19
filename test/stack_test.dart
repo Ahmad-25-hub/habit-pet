@@ -4,13 +4,16 @@ import 'package:habit_pet/models/habit.dart';
 import 'package:habit_pet/models/habit_stack.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Test HabitStore untuk fitur stack (B1): simpan, edit, hapus.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  // Kosongkan penyimpanan tiruan sebelum setiap test.
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
+  /// Membuat habit contoh dengan id dan nama tertentu.
   Habit habit(String id, String name) => Habit(
         id: id,
         name: name,

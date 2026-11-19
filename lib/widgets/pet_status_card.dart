@@ -13,6 +13,8 @@ class PetStatusCard extends StatelessWidget {
   /// Aksi saat kartu diketuk. Kalau kosong, tampilkan penjelasan status.
   final VoidCallback? onTap;
 
+  /// Menggambar kartu berisi gambar pet, nama, level, dan 3 bar status.
+  /// Diketuk -> [onTap], atau lembar penjelasan status kalau [onTap] kosong.
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -107,11 +109,13 @@ class PetStatusCard extends StatelessWidget {
   }
 }
 
+/// Label kecil "Lv. N" di samping nama pet.
 class _LevelPill extends StatelessWidget {
   const _LevelPill({required this.level});
 
   final int level;
 
+  /// Menggambar pil oranye berisi teks level.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -132,6 +136,7 @@ class _LevelPill extends StatelessWidget {
   }
 }
 
+/// Satu baris bar status (ikon, label, progress bar beranimasi, angka).
 class _StatBar extends StatelessWidget {
   const _StatBar({
     required this.icon,
@@ -147,6 +152,7 @@ class _StatBar extends StatelessWidget {
   final double value;
   final String text;
 
+  /// Menyusun ikon, label, progress bar beranimasi, dan teks nilai.
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -331,6 +337,7 @@ void showPetStatusSheet(BuildContext context, Pet pet) {
   );
 }
 
+/// Satu baris penjelasan (ikon + judul + teks) di lembar status pet.
 class _InfoRow extends StatelessWidget {
   const _InfoRow({
     required this.icon,
@@ -344,6 +351,7 @@ class _InfoRow extends StatelessWidget {
   final String title;
   final String text;
 
+  /// Menyusun ikon berwarna di kiri, judul dan teks penjelasan di kanan.
   @override
   Widget build(BuildContext context) {
     return Row(

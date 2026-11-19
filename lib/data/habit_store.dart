@@ -13,6 +13,7 @@ class HabitStore extends ChangeNotifier {
   List<HabitStack> stacks = []; // B1
   bool isLoading = true;
 
+  /// Memuat habit dan stack dari penyimpanan saat aplikasi dibuka.
   Future<void> load() async {
     habits = await HabitStorage.load();
     stacks = await HabitStorage.loadStacks();
@@ -29,17 +30,20 @@ class HabitStore extends ChangeNotifier {
 
   // ---- A1: tambah, edit, hapus ----
 
+  /// Menambah habit baru lalu menyimpannya.
   Future<void> add(Habit habit) async {
     habits.add(habit);
     await _save();
   }
 
+  /// Mengganti habit lama (id sama) dengan versi yang sudah diedit.
   Future<void> update(Habit habit) async {
     final index = habits.indexWhere((h) => h.id == habit.id);
     if (index != -1) habits[index] = habit;
     await _save();
   }
 
+  /// Menghapus habit berdasarkan id.
   Future<void> delete(String id) async {
     habits.removeWhere((h) => h.id == id);
 
@@ -63,22 +67,26 @@ class HabitStore extends ChangeNotifier {
         for (final id in stack.habitIds) ...habits.where((h) => h.id == id),
       ];
 
+  /// Menambah stack baru lalu menyimpannya.
   Future<void> addStack(HabitStack stack) async {
     stacks.add(stack);
     await _saveStacks();
   }
 
+  /// Mengganti stack lama (id sama) dengan versi yang sudah diedit.
   Future<void> updateStack(HabitStack stack) async {
     final index = stacks.indexWhere((s) => s.id == stack.id);
     if (index != -1) stacks[index] = stack;
     await _saveStacks();
   }
 
+  /// Menghapus stack berdasarkan id (habit di dalamnya tidak ikut terhapus).
   Future<void> deleteStack(String id) async {
     stacks.removeWhere((s) => s.id == id);
     await _saveStacks();
   }
 
+  /// Memberi tahu layar ada perubahan, lalu menyimpan daftar stack.
   Future<void> _saveStacks() async {
     notifyListeners();
     await HabitStorage.saveStacks(stacks);
@@ -109,6 +117,7 @@ class HabitStore extends ChangeNotifier {
     return nowDone;
   }
 
+  /// Memberi tahu layar ada perubahan, lalu menyimpan daftar habit.
   Future<void> _save() async {
     notifyListeners();
     await HabitStorage.save(habits);

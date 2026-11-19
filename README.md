@@ -6,6 +6,7 @@ Aplikasi mobile habit tracker berbasis Flutter dengan dua fitur unggulan:
 - **Virtual Pet**: hewan peliharaan virtual yang tumbuh saat pengguna konsisten menjalankan habit.
 
 Daftar fitur lengkap ada di `Daftar_Fitur_Habit_Tracker.md` (versi Word: `Daftar_Fitur_Habit_Tracker.docx`).
+Panduan desain (warna, ukuran, komponen) ada di [`DESIGN.md`](DESIGN.md). Baca dulu sebelum membuat halaman baru.
 
 ## Status fitur
 

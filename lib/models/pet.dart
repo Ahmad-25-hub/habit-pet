@@ -53,15 +53,19 @@ class Pet {
 
   // ---- Level ----
 
+  /// Level pet saat ini (mulai dari 1, naik tiap 100 XP).
   int get level => xp ~/ xpPerLevel + 1;
 
+  /// XP yang sudah terkumpul di level sekarang.
   int get xpInLevel => xp % xpPerLevel;
 
+  /// Sisa XP yang dibutuhkan untuk naik ke level berikutnya.
   int get xpToNextLevel => xpPerLevel - xpInLevel;
 
   /// Progres XP menuju level berikutnya (0.0 - 1.0).
   double get levelProgress => xpInLevel / xpPerLevel;
 
+  /// Gelar pet berdasarkan levelnya, mis. "Rubah Muda".
   String get levelTitle {
     if (level >= 8) return 'Rubah Legenda';
     if (level >= 6) return 'Rubah Hebat';
@@ -75,6 +79,7 @@ class Pet {
   /// Pet dianggap bahagia kalau kenyang dan kebahagiaannya masih cukup.
   bool get isHappy => fullness >= 30 && happiness >= 30;
 
+  /// Teks suasana hati pet untuk ditampilkan di layar.
   String get moodLabel => isHappy ? 'Senang' : 'Lapar & sedih';
 
   /// Gambar pet sesuai kondisinya.
@@ -123,8 +128,10 @@ class Pet {
     fullness: _clampStatus(fullness - habitFullness),
   );
 
+  /// Mengembalikan pet dengan nama baru.
   Pet rename(String newName) => copyWith(name: newName);
 
+  /// Salinan pet dengan sebagian data diganti (objek Pet tidak diubah langsung).
   Pet copyWith({
     String? name,
     int? fullness,
@@ -143,6 +150,7 @@ class Pet {
 
   // ---- Penyimpanan ----
 
+  /// Mengubah pet menjadi Map supaya bisa disimpan sebagai JSON.
   Map<String, dynamic> toJson() => {
     'name': name,
     'fullness': fullness,
@@ -151,6 +159,7 @@ class Pet {
     'lastUpdated': lastUpdated.toIso8601String(),
   };
 
+  /// Membuat pet dari Map JSON; field yang hilang diisi nilai bawaan.
   factory Pet.fromJson(Map<String, dynamic> json) => Pet(
     name: json['name'] as String? ?? 'Pet',
     fullness: (json['fullness'] as num?)?.toInt() ?? initialFullness,
@@ -162,8 +171,10 @@ class Pet {
   );
 }
 
+/// Menjaga nilai status tetap di rentang 0 - 100.
 int _clampStatus(int value) => value.clamp(0, Pet.maxStatus).toInt();
 
+/// Membuang jam/menit, hanya menyisakan tanggalnya.
 DateTime _dateOnly(DateTime date) => DateTime(date.year, date.month, date.day);
 
 /// Selisih hari kalender, dihitung dengan UTC supaya aman dari pergeseran

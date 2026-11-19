@@ -16,28 +16,35 @@ class StackFormScreen extends StatefulWidget {
   /// null = buat stack baru, selain itu = edit stack ini.
   final HabitStack? stack;
 
+  /// Membuat objek state untuk form stack.
   @override
   State<StackFormScreen> createState() => _StackFormScreenState();
 }
 
+/// State form stack: menyimpan nama dan daftar habit yang dipilih.
 class _StackFormScreenState extends State<StackFormScreen> {
   late final nameController = TextEditingController(text: widget.stack?.name);
 
   /// Id habit yang dipilih, sesuai urutan rutinitas.
   late final List<String> chosen = [...?widget.stack?.habitIds];
 
+  /// True kalau form dibuka untuk mengedit stack yang sudah ada.
   bool get isEdit => widget.stack != null;
 
+  /// Membersihkan controller teks saat halaman ditutup.
   @override
   void dispose() {
     nameController.dispose();
     super.dispose();
   }
 
+  /// Menampilkan pesan singkat (SnackBar), mis. untuk error validasi.
   void showMessage(String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
+  /// Memvalidasi isian (nama + minimal 2 habit), lalu menyimpan stack
+  /// dan menutup form.
   void save() {
     final name = nameController.text.trim();
 
@@ -64,6 +71,8 @@ class _StackFormScreenState extends State<StackFormScreen> {
     Navigator.pop(context);
   }
 
+  /// Menyusun form: nama stack, urutan habit terpilih, daftar habit
+  /// yang bisa ditambahkan, dan tombol simpan.
   @override
   Widget build(BuildContext context) {
     final habits = widget.store.habits;
@@ -201,6 +210,7 @@ class _Title extends StatelessWidget {
 
   final String text;
 
+  /// Menampilkan teks judul tebal dengan jarak di bawahnya.
   @override
   Widget build(BuildContext context) {
     return Padding(

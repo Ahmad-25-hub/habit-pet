@@ -25,14 +25,18 @@ class HomeScreen extends StatefulWidget {
   final HabitStore store;
   final PetStore petStore;
 
+  /// Membuat objek state untuk halaman utama.
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+/// State halaman utama: menyimpan tanggal terpilih dan memantau
+/// perubahan data habit & pet.
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   DateTime selected = DateUtils.dateOnly(DateTime.now());
   late final Listenable _listenable;
 
+  /// Menggabungkan listener habit & pet, lalu mulai memantau siklus hidup app.
   @override
   void initState() {
     super.initState();
@@ -40,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
 
+  /// Berhenti memantau siklus hidup app saat halaman ditutup.
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -54,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
   }
 
+  /// Membuka halaman Kelola Habit.
   void openManage() {
     Navigator.push(
       context,
@@ -81,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
+  /// Membuka form habit: tambah baru kalau [habit] null, edit kalau diisi.
   void openForm([Habit? habit]) {
     Navigator.push(
       context,
@@ -90,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
+  /// Menampilkan pesan singkat (SnackBar) di bawah layar.
   void showMessage(String text) {
     final messenger = ScaffoldMessenger.of(context);
     messenger.hideCurrentSnackBar();
@@ -145,11 +153,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     );
   }
 
+  /// Judul daftar habit: "Habit Hari Ini" atau nama hari + tanggal terpilih.
   String get listTitle {
     if (DateUtils.isSameDay(selected, DateTime.now())) return 'Habit Hari Ini';
     return '${dayLong[selected.weekday - 1]}, ${selected.day} ${monthShort[selected.month - 1]}';
   }
 
+  /// Menyusun halaman utama: header, kartu pet, deretan tanggal,
+  /// banner streak, dan daftar habit pada tanggal terpilih.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -239,12 +250,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 }
 
+/// Bagian atas halaman utama: sapaan, judul, tombol Stack & Kelola.
 class _Header extends StatelessWidget {
   const _Header({required this.onManage, required this.onStacks});
 
   final VoidCallback onManage;
   final VoidCallback onStacks;
 
+  /// Menyusun teks sapaan + judul dan dua tombol bulat di kanan.
   @override
   Widget build(BuildContext context) {
     return Row(

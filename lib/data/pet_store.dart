@@ -11,8 +11,11 @@ class PetStore extends ChangeNotifier {
   Pet? pet;
   bool isLoading = true;
 
+  /// True kalau pengguna sudah membuat (memberi nama) pet.
   bool get hasPet => pet != null;
 
+  /// Memuat pet dari penyimpanan dan langsung menerapkan penurunan status
+  /// sesuai hari yang terlewat.
   Future<void> load() async {
     final saved = await PetStorage.load();
     isLoading = false;
@@ -60,6 +63,7 @@ class PetStore extends ChangeNotifier {
     await _update(current.removeHabitReward());
   }
 
+  /// Mengganti nama pet (diabaikan kalau kosong atau sama dengan nama lama).
   Future<void> rename(String newName) async {
     final current = pet;
     final name = newName.trim();
@@ -80,6 +84,7 @@ class PetStore extends ChangeNotifier {
     await PetStorage.save(updated);
   }
 
+  /// Mengganti pet di memori, memberi tahu layar, lalu menyimpannya.
   Future<void> _update(Pet newPet) async {
     pet = newPet;
     notifyListeners();

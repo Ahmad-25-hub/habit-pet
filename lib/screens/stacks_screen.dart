@@ -26,6 +26,7 @@ class StacksScreen extends StatelessWidget {
     );
   }
 
+  /// Membuka form stack: buat baru kalau [stack] null, edit kalau diisi.
   void openForm(BuildContext context, [HabitStack? stack]) {
     Navigator.push(
       context,
@@ -33,6 +34,7 @@ class StacksScreen extends StatelessWidget {
     );
   }
 
+  /// Menampilkan dialog konfirmasi, lalu menghapus stack kalau disetujui.
   Future<void> confirmDelete(BuildContext context, HabitStack stack) async {
     final yes = await showDialog<bool>(
       context: context,
@@ -55,6 +57,7 @@ class StacksScreen extends StatelessWidget {
     if (yes == true) await store.deleteStack(stack.id);
   }
 
+  /// Menyusun halaman: header, keterangan, dan daftar semua stack.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +125,7 @@ class StacksScreen extends StatelessWidget {
   }
 }
 
+/// Satu kartu stack: nama, jumlah & urutan habit, tombol jalankan & hapus.
 class _StackTile extends StatelessWidget {
   const _StackTile({
     required this.stack,
@@ -137,6 +141,7 @@ class _StackTile extends StatelessWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
+  /// Menyusun kartu; diketuk -> edit, play -> jalankan, sampah -> hapus.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

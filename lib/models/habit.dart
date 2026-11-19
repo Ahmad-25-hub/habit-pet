@@ -24,10 +24,13 @@ class Habit {
     this.doneDates = const [],
   });
 
+  /// True kalau habit dijadwalkan di ketujuh hari.
   bool get isEveryDay => days.length == 7;
 
+  /// Mengecek apakah habit dijadwalkan pada hari dari [date].
   bool isScheduledOn(DateTime date) => days.contains(date.weekday);
 
+  /// Mengecek apakah habit sudah diselesaikan pada [date].
   bool isDoneOn(DateTime date) => doneDates.contains(dateKey(date));
 
   /// Salinan habit dengan sebagian data diganti (dipakai saat check-in).
@@ -70,6 +73,7 @@ class Habit {
     return count;
   }
 
+  /// Mengubah habit menjadi Map supaya bisa disimpan sebagai JSON.
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -79,6 +83,7 @@ class Habit {
         'doneDates': doneDates,
       };
 
+  /// Membuat habit dari Map hasil membaca JSON.
   factory Habit.fromJson(Map<String, dynamic> json) => Habit(
         id: json['id'] as String,
         name: json['name'] as String,
@@ -96,4 +101,5 @@ String dateKey(DateTime date) {
   return '${date.year}-$m-$d';
 }
 
+/// Mengembalikan tanggal satu hari sebelum [day].
 DateTime _previousDay(DateTime day) => DateTime(day.year, day.month, day.day - 1);

@@ -12,6 +12,7 @@ class ManageHabitsScreen extends StatelessWidget {
 
   final HabitStore store;
 
+  /// Membuka form habit: tambah baru kalau [habit] null, edit kalau diisi.
   void openForm(BuildContext context, [Habit? habit]) {
     Navigator.push(
       context,
@@ -19,6 +20,7 @@ class ManageHabitsScreen extends StatelessWidget {
     );
   }
 
+  /// Menampilkan dialog konfirmasi, lalu menghapus habit kalau disetujui.
   Future<void> confirmDelete(BuildContext context, Habit habit) async {
     final yes = await showDialog<bool>(
       context: context,
@@ -41,6 +43,7 @@ class ManageHabitsScreen extends StatelessWidget {
     if (yes == true) await store.delete(habit.id);
   }
 
+  /// Menyusun halaman: header, jumlah habit, dan daftar semua habit.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +93,7 @@ class ManageHabitsScreen extends StatelessWidget {
   }
 }
 
+/// Satu kartu habit di halaman Kelola (gambar, nama, jadwal, streak, hapus).
 class _ManageTile extends StatelessWidget {
   const _ManageTile({
     required this.habit,
@@ -101,6 +105,7 @@ class _ManageTile extends StatelessWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
+  /// Menyusun kartu; diketuk -> edit, tombol sampah -> hapus.
   @override
   Widget build(BuildContext context) {
     final color = Color(habit.color);
