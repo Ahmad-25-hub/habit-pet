@@ -30,6 +30,24 @@ class Habit {
 
   bool isDoneOn(DateTime date) => doneDates.contains(dateKey(date));
 
+  /// Salinan habit dengan sebagian data diganti (dipakai saat check-in).
+  Habit copyWith({
+    String? name,
+    String? icon,
+    int? color,
+    List<int>? days,
+    List<String>? doneDates,
+  }) {
+    return Habit(
+      id: id,
+      name: name ?? this.name,
+      icon: icon ?? this.icon,
+      color: color ?? this.color,
+      days: days ?? this.days,
+      doneDates: doneDates ?? this.doneDates,
+    );
+  }
+
   /// A4: jumlah hari terjadwal berturut-turut yang diselesaikan,
   /// dihitung mundur dari hari ini.
   /// - Hari yang tidak terjadwal dilewati (tidak memutus streak).

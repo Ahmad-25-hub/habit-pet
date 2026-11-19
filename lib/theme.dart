@@ -10,6 +10,10 @@ class AppColors {
   static const text = Color(0xFF2B2622);
   static const textSoft = Color(0xFF9A928B);
   static const green = Color(0xFF22A55B);
+
+  /// Warna status pet (C2).
+  static const pink = Color(0xFFF2709C);
+  static const blue = Color(0xFF5B8DEF);
 }
 
 /// Pilihan ikon habit (file: `assets/images/habit_<nama>.png`).

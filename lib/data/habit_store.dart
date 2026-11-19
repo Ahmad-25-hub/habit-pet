@@ -42,6 +42,31 @@ class HabitStore extends ChangeNotifier {
     await _save();
   }
 
+  // ---- A3: check-in / batalkan check-in ----
+
+  /// Menandai habit selesai pada [date], atau membatalkannya kalau tanggal
+  /// tersebut sudah tercatat. Mengembalikan status selesai yang baru.
+  Future<bool> toggleDone(String id, DateTime date) async {
+    final index = habits.indexWhere((h) => h.id == id);
+    if (index == -1) return false;
+
+    final habit = habits[index];
+    final key = dateKey(date);
+    final dates = [...habit.doneDates];
+    final nowDone = !dates.contains(key);
+
+    if (nowDone) {
+      dates.add(key);
+      dates.sort();
+    } else {
+      dates.remove(key);
+    }
+
+    habits[index] = habit.copyWith(doneDates: dates);
+    await _save();
+    return nowDone;
+  }
+
   Future<void> _save() async {
     notifyListeners();
     await HabitStorage.save(habits);

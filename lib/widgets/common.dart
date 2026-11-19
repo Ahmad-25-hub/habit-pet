@@ -158,12 +158,16 @@ class StreakLabel extends StatelessWidget {
           color: streak > 0 ? AppColors.orange : AppColors.textSoft,
         ),
         const SizedBox(width: 2),
-        Text(
-          '$streak hari streak',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: streak > 0 ? AppColors.orange : AppColors.textSoft,
+        Flexible(
+          child: Text(
+            '$streak hari streak',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: streak > 0 ? AppColors.orange : AppColors.textSoft,
+            ),
           ),
         ),
       ],
